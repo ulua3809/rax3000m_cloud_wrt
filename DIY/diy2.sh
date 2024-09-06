@@ -32,11 +32,11 @@ sed -i 's/luci-theme-bootstrap/luci-theme-argon/g' feeds/luci/collections/luci/M
 sed -i 's/luci-theme-bootstrap/luci-theme-argon/g' feeds/luci/collections/luci-nginx/Makefile
 
 ##更改主机名
-sed -i "s/hostname='.*'/hostname='MzWrt'/g" package/base-files/files/bin/config_generate
+sed -i "s/hostname='.*'/hostname='uluaWrt'/g" package/base-files/files/bin/config_generate
 
 ##加入作者信息
-sed -i "s/DISTRIB_DESCRIPTION='*.*'/DISTRIB_DESCRIPTION='MzWrt-$(date +%Y%m%d)'/g"  package/base-files/files/etc/openwrt_release
-sed -i "s/DISTRIB_REVISION='*.*'/DISTRIB_REVISION=' By Mz'/g" package/base-files/files/etc/openwrt_release
+sed -i "s/DISTRIB_DESCRIPTION='*.*'/DISTRIB_DESCRIPTION='uluaWrt-$(date +%Y%m%d)'/g"  package/base-files/files/etc/openwrt_release
+sed -i "s/DISTRIB_REVISION='*.*'/DISTRIB_REVISION=' By ulua'/g" package/base-files/files/etc/openwrt_release
 cp -af feeds/extraipk/patch/diy/banner-MZwrt  package/base-files/files/etc/banner
 
 sed -i "2iuci set istore.istore.channel='MZ_wrt'" package/emortal/default-settings/files/99-default-settings
@@ -45,11 +45,11 @@ sed -i.bak "s,mirrors.vsean.net/openwrt,mirrors.vsean.net/openwrt,g" package/emo
 
 
 ##WiFi
-sed -i "s/MT7981_AX3000_2.4G/MzWrt-2.4G/g" package/mtk/drivers/wifi-profile/files/mt7981/mt7981.dbdc.b0.dat
-sed -i "s/MT7981_AX3000_5G/MzWrt-5G/g" package/mtk/drivers/wifi-profile/files/mt7981/mt7981.dbdc.b1.dat
+sed -i "s/MT7981_AX3000_2.4G/uluaWrt-2.4G/g" package/mtk/drivers/wifi-profile/files/mt7981/mt7981.dbdc.b0.dat
+sed -i "s/MT7981_AX3000_5G/uluaWrt-5G/g" package/mtk/drivers/wifi-profile/files/mt7981/mt7981.dbdc.b1.dat
 
 ##New WiFi
-sed -i "s/ImmortalWrt-2.4G/MzWrt-2.4G/g" package/mtk/applications/mtwifi-cfg/files/mtwifi.sh
-sed -i "s/ImmortalWrt-5G/MzWrt-5G/g" package/mtk/applications/mtwifi-cfg/files/mtwifi.sh
+sed -i "s/ImmortalWrt-2.4G/uluaWrt-2.4G/g" package/mtk/applications/mtwifi-cfg/files/mtwifi.sh
+sed -i "s/ImmortalWrt-5G/uluaWrt-5G/g" package/mtk/applications/mtwifi-cfg/files/mtwifi.sh
 
 
