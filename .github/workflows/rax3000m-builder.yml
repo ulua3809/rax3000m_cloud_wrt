@@ -5,8 +5,8 @@ on:
   workflow_dispatch:
 
 # 定时触发编译
-  schedule:
-    - cron: 25 18 * * 6
+  # schedule:
+    # - cron: 25 18 * * 6
 
 # 点赞☆Star触发编译
 #  watch:
@@ -131,4 +131,4 @@ jobs:
         artifacts: ARM_Out/*
         name: ${{ steps.generate_name.outputs.release_name }}
         tag: ${{ steps.generate_name.outputs.release_tag }}
-        token: ${{ secrets.GITHUB_TOKEN }}
+        token: ${{ secrets.REPO_TOKEN }}
