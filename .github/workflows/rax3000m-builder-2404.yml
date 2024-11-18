@@ -68,7 +68,14 @@ jobs:
       run: |
         [ -e $CONFIG_FILE ] && mv $CONFIG_FILE openwrt/.config
         cd openwrt && make defconfig
-        
+
+    - name: Upload config
+      uses: actions/upload-artifact@main
+      with:
+        name: rax3000m-config
+        path: openwrt/.config
+        include-hidden-files: true
+  
     - name: Download package
       working-directory: ./openwrt
       run: |
@@ -103,12 +110,6 @@ jobs:
       with:
         name: CMCC-RAX3000M-OpenWrt
         path: ARM_Out/*.bin
-
-    - name: Upload config
-      uses: actions/upload-artifact@main
-      with:
-        name: rax3000m-config
-        path: openwrt/.config
 
     - name: Upload Packages
       uses: actions/upload-artifact@main
