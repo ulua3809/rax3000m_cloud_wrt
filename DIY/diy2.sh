@@ -37,11 +37,11 @@ sed -i "s/hostname='.*'/hostname='uluaWrt'/g" package/base-files/files/bin/confi
 ##加入作者信息
 sed -i "s/DISTRIB_DESCRIPTION='*.*'/DISTRIB_DESCRIPTION='uluaWrt-$(date +%Y%m%d)'/g"  package/base-files/files/etc/openwrt_release
 sed -i "s/DISTRIB_REVISION='*.*'/DISTRIB_REVISION=' By ulua'/g" package/base-files/files/etc/openwrt_release
-#cp -af feeds/extraipk/patch/diy/banner-MZwrt  package/base-files/files/etc/banner
+# cp -af feeds/extraipk/patch/diy/banner-MZwrt  package/base-files/files/etc/banner
 
-#sed -i "2iuci set istore.istore.channel='MZ_wrt'" package/emortal/default-settings/files/99-default-settings
-#sed -i "3iuci commit istore" package/emortal/default-settings/files/99-default-settings
-#sed -i.bak "s,mirrors.vsean.net/openwrt,mirrors.vsean.net/openwrt,g" package/emortal/default-settings/files/99-default-settings
+# sed -i "2iuci set istore.istore.channel='MZ_wrt'" package/emortal/default-settings/files/99-default-settings
+# sed -i "3iuci commit istore" package/emortal/default-settings/files/99-default-settings
+# sed -i.bak "s,mirrors.vsean.net/openwrt,mirrors.vsean.net/openwrt,g" package/emortal/default-settings/files/99-default-settings
 
 
 ##WiFi
@@ -52,4 +52,40 @@ sed -i "s/MT7981_AX3000_5G/uluaWrt-5G/g" package/mtk/drivers/wifi-profile/files/
 sed -i "s/ImmortalWrt-2.4G/uluaWrt-2.4G/g" package/mtk/applications/mtwifi-cfg/files/mtwifi.sh
 sed -i "s/ImmortalWrt-5G/uluaWrt-5G/g" package/mtk/applications/mtwifi-cfg/files/mtwifi.sh
 
+# ttyd ssl
+cat <<EOL >> package/feeds/packages/ttyd/files/ttyd.config
+	option ssl '1'
+	option ssl_cert '/etc/nginx/conf.d/_lan.crt'
+	option ssl_key '/etc/nginx/conf.d/_lan.key'
+EOL
+# luci argon config
+cat <<EOL > package/feeds/luci/luci-app-argon-config/root/etc/config/argon
+config global
+	option primary '#5e72e4'
+	option dark_primary '#483d8b'
+	option mode 'normal'
+	option online_wallpaper 'none'
+	option transparency '0.5'
+	option blur '10'
+	option blur_dark '10'
+	option transparency_dark '0.5'
+EOL
 
+# turboacc
+cat <<EOL > package/feeds/luci/luci-app-turboacc/root/etc/config/turboacc
+config turboacc 'global'
+	option set '1'
+
+config turboacc 'config'
+	option fastpath 'mediatek_hnat'
+	option fastpath_mh_eth_hnat '1'
+	option fastpath_mh_eth_hnat_v6 '1'
+	option fastpath_mh_eth_hnat_macvlan '0'
+	option fastpath_mh_eth_hnat_bind_rate '30'
+	option fastpath_mh_eth_hnat_ppenum '2'
+	option tcpcca 'bbr'
+	option fullcone '2'
+EOL
+
+# statistics
+sed -z -i "s/config statistics 'collectd_iwinfo'\n\toption enable '1'/config statistics 'collectd_iwinfo'\n\toption enable '0'/g" package/feeds/luci/luci-app-statistics/root/etc/config/luci_statistics
