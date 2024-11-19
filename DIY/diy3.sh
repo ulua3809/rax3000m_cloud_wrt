@@ -40,7 +40,6 @@ net.ipv4.tcp_window_scaling=1
 net.ipv4.tcp_timestamps=1
 net.ipv4.tcp_sack=1
 net.ipv4.tcp_rfc1337=1
-1
 EOL
 # 清空 /etc/rc.local 文件
 
