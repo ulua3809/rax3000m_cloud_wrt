@@ -95,7 +95,7 @@ jobs:
       - name: Build firmware
         working-directory: ./openwrt
         run: |
-          make -j$(nproc) V=s
+          make -j$(nproc)
 
       - name: Upload Packages
         uses: actions/upload-artifact@main
