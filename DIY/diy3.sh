@@ -40,12 +40,14 @@ net.ipv4.tcp_window_scaling=1
 net.ipv4.tcp_timestamps=1
 net.ipv4.tcp_sack=1
 net.ipv4.tcp_rfc1337=1
+1
 EOL
-
 # 清空 /etc/rc.local 文件
+
 > package/base-files/files/etc/rc.local
 
-# 添加脚本
+# 添加启动脚本
+
 cat <<EOL >> package/base-files/files/etc/rc.local
 # Put your custom commands here that should be executed once
 # the system init finished. By default this file does nothing.
@@ -53,23 +55,23 @@ cat <<EOL >> package/base-files/files/etc/rc.local
 
 # 设置每个支持的接口的 RX 和 TX 队列大小
 for iface in br-lan eth0 eth1 rax0 ra0; do
-  # 配置 RX 队列
-  if [ -d /sys/class/net/$iface/queues/rx-0 ]; then
-    # 设置 rps_flow_cnt
-    if [ -f /sys/class/net/$iface/queues/rx-0/rps_flow_cnt ]; then
-      echo 1024 > /sys/class/net/$iface/queues/rx-0/rps_flow_cnt
-    fi
-  fi
+	# 配置 RX 队列
+	if [ -d /sys/class/net/$iface/queues/rx-0 ]; then
+		# 设置 rps_flow_cnt
+		if [ -f /sys/class/net/$iface/queues/rx-0/rps_flow_cnt ]; then
+			echo 1024 > /sys/class/net/$iface/queues/rx-0/rps_flow_cnt
+		fi
+	fi
 
-  # 配置 TX 队列
-  if [ -d /sys/class/net/$iface/queues/tx-0 ]; then
-    # 设置 byte_queue_limits
-    if [ -d /sys/class/net/$iface/queues/tx-0/byte_queue_limits ]; then
-      echo 1024 > /sys/class/net/$iface/queues/tx-0/byte_queue_limits/limit
-      echo 2048 > /sys/class/net/$iface/queues/tx-0/byte_queue_limits/limit_max
-      echo 512 > /sys/class/net/$iface/queues/tx-0/byte_queue_limits/limit_min
-    fi
-  fi
+	# 配置 TX 队列
+	if [ -d /sys/class/net/$iface/queues/tx-0 ]; then
+		# 设置 byte_queue_limits
+		if [ -d /sys/class/net/$iface/queues/tx-0/byte_queue_limits ]; then
+			echo 1024 > /sys/class/net/$iface/queues/tx-0/byte_queue_limits/limit
+			echo 2048 > /sys/class/net/$iface/queues/tx-0/byte_queue_limits/limit_max
+			echo 512 > /sys/class/net/$iface/queues/tx-0/byte_queue_limits/limit_min
+		fi
+	fi
 done
 
 exit 0
@@ -77,10 +79,10 @@ EOL
 
 # 开启irqbalance
 # 修改 option enabled '0' 为 option enabled '1'
-sed -i "s/option enabled '0'/option enabled '1'/g" package/base-files/files/etc/config/irqbalance
+sed -i "s/option enabled '0'/option enabled '1'/g" package/feeds/packages/irqbalance/files/irqbalance.config
 
 # 取消 option interval '10' 前面的 # 号
-sed -i "s/#option interval '10'/option interval '10'/g" package/base-files/files/etc/config/irqbalance
+sed -i "s/#option interval '10'/option interval '10'/g" package/feeds/packages/irqbalance/files/irqbalance.config
 
 
 echo "diy3运行完成"
