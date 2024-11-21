@@ -121,10 +121,10 @@ jobs:
           cat ./filedigest.md >> $GITHUB_STEP_SUMMARY
           echo "time=$(date +%Y%m%d%H%M%S)" >> $GITHUB_OUTPUT
 
-      - name: Upload rax3000m nand Firmware
+      - name: Upload rax3000m nand&emmc Firmware
         uses: actions/upload-artifact@main
         with:
-          name: rax3000m-nand-builds-${{ steps.calculate_digest.outputs.time }}
+          name: rax3000m-nand-emmc-builds-${{ steps.calculate_digest.outputs.time }}
           path: openwrt/bin/targets/mediatek/mt7981/immortalwrt-mediatek-mt7981-cmcc_rax3000m-*
           include-hidden-files: true
           compression-level: 0
