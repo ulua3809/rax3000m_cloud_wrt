@@ -25,6 +25,11 @@ rm -rf ./package/feeds/extraipk/theme/luci-theme-ifit
 rm -rf ./package/feeds/extraipk/theme/luci-theme-opentopd
 rm -rf ./package/feeds/extraipk/theme/luci-theme-neobird
 
+##取消安装usbprinter和samba4
+
+sed -i "s/luci-app-samba4//g" target/linux/mediatek/image/mt7981.mk
+sed -i "s/luci-app-usb-printer//g" target/linux/mediatek/image/mt7981.mk
+sed -i "s/luci-i18n-usb-printer-zh-cn//g" target/linux/mediatek/image/mt7981.mk
 
 ##取消bootstrap为默认主题
 sed -i '/set luci.main.mediaurlbase=\/luci-static\/bootstrap/d' feeds/luci/themes/luci-theme-bootstrap/root/etc/uci-defaults/30_luci-theme-bootstrap
